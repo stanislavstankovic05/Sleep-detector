@@ -6,14 +6,13 @@ import os
 from PIL import Image
 
 def to_grayscale(x, y):
-    x = tf.image.rgb_to_grayscale(x)  # Convert to (128, 128, 1)
+    x = tf.image.rgb_to_grayscale(x)  
     return x, y
 
-# Set image size and batch size
 IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
 
-# Load datasets using efficient generator-based loading
+
 train_dataset = tf.keras.utils.image_dataset_from_directory(
     "data/train",
     labels="inferred",
@@ -24,7 +23,7 @@ train_dataset = tf.keras.utils.image_dataset_from_directory(
 )
 
 val_dataset = tf.keras.utils.image_dataset_from_directory(
-    "data/val",  # You should separate validation data from test
+    "data/val",  
     labels="inferred",
     label_mode="binary",
     batch_size=BATCH_SIZE,
@@ -41,7 +40,6 @@ test_dataset = tf.keras.utils.image_dataset_from_directory(
     shuffle=False
 )
 
-# # Normalize images (rescale from 0-255 to 0-1)
 # normalization_layer = layers.Rescaling(1./255)
 # train_dataset = train_dataset.map(to_grayscale).map(lambda x, y: (normalization_layer(x), y))
 # val_dataset = val_dataset.map(to_grayscale).map(lambda x, y: (normalization_layer(x), y))
